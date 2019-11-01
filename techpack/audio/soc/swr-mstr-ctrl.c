@@ -244,6 +244,7 @@ static const struct file_operations swrm_debug_ops = {
 	.write = swrm_debug_write,
 	.read = swrm_debug_read,
 };
+
 static int swrm_get_ssp_period(struct swr_mstr_ctrl *swrm,
 				int row, int col,
 				int frame_sync)
@@ -508,7 +509,7 @@ retry_read:
 		if (retry_attempt < MAX_FIFO_RD_FAIL_RETRY) {
 			/* wait 500 us before retry on fifo read failure */
 			usleep_range(500, 505);
-			if (retry_attempt == (MAX_FIFO_RD_FAIL_RETRY - 1)) {
+ 			if (retry_attempt == (MAX_FIFO_RD_FAIL_RETRY - 1)) {
 				swr_master_write(swrm, SWRM_CMD_FIFO_CMD, 0x1);
 				swr_master_write(swrm, SWRM_CMD_FIFO_RD_CMD, val);
 			}

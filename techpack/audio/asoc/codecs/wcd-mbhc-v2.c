@@ -751,6 +751,7 @@ void wcd_mbhc_report_plug(struct wcd_mbhc *mbhc, int insertion,
 						SND_JACK_LINEOUT |
 						SND_JACK_ANC_HEADPHONE |
 						SND_JACK_UNSUPPORTED);
+			mbhc->force_linein = false;
 		}
 
 		if (mbhc->current_plug == MBHC_PLUG_TYPE_HEADSET &&

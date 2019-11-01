@@ -394,6 +394,8 @@ static bool wcd_mbhc_adc_check_for_spl_headset(struct wcd_mbhc *mbhc,
 	bool spl_hs = false;
 	int output_mv = 0;
 	int adc_threshold = 0, adc_hph_threshold = 0;
+	struct snd_soc_codec *codec = mbhc->codec;
+	struct wcd9xxx_pdata *pdata = dev_get_platdata(codec->dev->parent);
 
 	pr_debug("%s: enter\n", __func__);
 	if (!mbhc->mbhc_cb->mbhc_micb_ctrl_thr_mic)
@@ -411,6 +413,20 @@ static bool wcd_mbhc_adc_check_for_spl_headset(struct wcd_mbhc *mbhc,
 	output_mv = wcd_measure_adc_once(mbhc, MUX_CTL_IN2P);
 	adc_threshold = wcd_mbhc_adc_get_hs_thres(mbhc);
 	adc_hph_threshold = wcd_mbhc_adc_get_hph_thres(mbhc);
+
+	if (mbhc->hs_thr &&
+		(pdata->micbias.micb2_mv != WCD_MBHC_ADC_MICBIAS_MV))
+		adc_threshold = mbhc->hs_thr;
+	else
+		adc_threshold = ((WCD_MBHC_ADC_HS_THRESHOLD_MV *
+			  wcd_mbhc_get_micbias(mbhc))/WCD_MBHC_ADC_MICBIAS_MV);
+
+	if (mbhc->hph_thr)
+		adc_hph_threshold = mbhc->hph_thr;
+	else
+		adc_hph_threshold = ((WCD_MBHC_ADC_HPH_THRESHOLD_MV *
+				wcd_mbhc_get_micbias(mbhc))/
+				WCD_MBHC_ADC_MICBIAS_MV);
 
 	if (output_mv > adc_threshold || output_mv < adc_hph_threshold) {
 		spl_hs = false;
@@ -443,6 +459,8 @@ static bool wcd_is_special_headset(struct wcd_mbhc *mbhc)
 	bool is_spl_hs = false;
 	int output_mv = 0;
 	int adc_threshold = 0;
+	struct snd_soc_codec *codec = mbhc->codec;
+	struct wcd9xxx_pdata *pdata = dev_get_platdata(codec->dev->parent);
 
 	/*
 	 * Increase micbias to 2.7V to detect headsets with
@@ -463,6 +481,13 @@ static bool wcd_is_special_headset(struct wcd_mbhc *mbhc)
 		}
 	}
 	adc_threshold = wcd_mbhc_adc_get_hs_thres(mbhc);
+	if (mbhc->hs_thr &&
+		(pdata->micbias.micb2_mv != WCD_MBHC_ADC_MICBIAS_MV))
+		adc_threshold = mbhc->hs_thr;
+	else
+		adc_threshold = ((WCD_MBHC_ADC_HS_THRESHOLD_MV *
+			  wcd_mbhc_get_micbias(mbhc)) /
+			  WCD_MBHC_ADC_MICBIAS_MV);
 
 	while (!is_spl_hs) {
 		if (mbhc->hs_detect_work_stop) {
@@ -597,6 +622,16 @@ static int wcd_mbhc_get_plug_from_adc(struct wcd_mbhc *mbhc, int adc_result)
 
 	hs_thr = wcd_mbhc_adc_get_hs_thres(mbhc);
 	hph_thr = wcd_mbhc_adc_get_hph_thres(mbhc);
+
+	if (mbhc->hs_thr)
+		hs_thr = mbhc->hs_thr;
+	else
+		hs_thr = WCD_MBHC_ADC_HS_THRESHOLD_MV;
+
+	if (mbhc->hph_thr)
+		hph_thr = mbhc->hph_thr;
+	else
+		hph_thr = WCD_MBHC_ADC_HPH_THRESHOLD_MV;
 
 	if (adc_result < hph_thr)
 		plug_type = MBHC_PLUG_TYPE_HEADPHONE;

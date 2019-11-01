@@ -702,7 +702,7 @@ static int msm_pcm_volume_ctl_get(struct snd_kcontrol *kcontrol,
 	struct snd_pcm_substream *substream =
 		vol->pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
 	struct snd_soc_pcm_runtime *soc_prtd = NULL;
-	struct msm_audio *prtd;
+    struct msm_audio *prtd;
 
 	pr_debug("%s\n", __func__);
 	if (!substream) {

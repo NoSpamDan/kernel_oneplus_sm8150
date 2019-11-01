@@ -3256,7 +3256,7 @@ static int msm_compr_audio_effects_config_put(struct snd_kcontrol *kcontrol,
 		pr_debug("%s: No effects for compr_type[%d]\n",
 			__func__, prtd->compr_passthr);
 		goto done;
-	}
+}
 	pr_debug("%s: Effects supported for compr_type[%d]\n",
 		 __func__, prtd->compr_passthr);
 
@@ -3399,6 +3399,7 @@ static int msm_compr_query_audio_effect_put(struct snd_kcontrol *kcontrol,
 			__func__, prtd->compr_passthr);
 		ret = -EPERM;
 		goto done;
+
 	}
 	audio_effects->query.mod_id = (u32)*values++;
 	audio_effects->query.parm_id = (u32)*values++;

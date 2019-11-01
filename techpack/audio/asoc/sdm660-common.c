@@ -38,6 +38,12 @@
 #define DEFAULT_MCLK_RATE 9600000
 #define MSM_LL_QOS_VALUE 300 /* time in us to ensure LPM doesn't go in C3/C4 */
 
+struct dev_config {
+	u32 sample_rate;
+	u32 bit_format;
+	u32 channels;
+};
+
 enum {
 	DP_RX_IDX,
 	EXT_DISP_RX_IDX_MAX,

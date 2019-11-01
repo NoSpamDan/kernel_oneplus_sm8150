@@ -813,6 +813,7 @@ static int __wcd_spi_data_xfer(struct spi_device *spi,
 	WCD_SPI_MUTEX_UNLOCK(spi, wcd_spi->xfer_mutex);
 done:
 	WCD_SPI_MUTEX_UNLOCK(spi, wcd_spi->clk_mutex);
+
 	return ret;
 }
 

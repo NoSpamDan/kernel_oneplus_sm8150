@@ -256,6 +256,7 @@ struct msm_dai_q6_cdc_dma_dai_data {
 	u32 bitwidth;
 	u32 is_island_dai;
 	u32 xt_logging_disable;
+
 	union afe_port_config port_config;
 };
 

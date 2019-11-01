@@ -907,6 +907,8 @@ static int msm_pcm_playback_close(struct snd_pcm_substream *substream)
 		 * Unvote to downgrade the Rx thread priority from
 		 * RT Thread for Low-Latency use case.
 		 */
+		pdata = (struct msm_plat_data *)
+			dev_get_drvdata(soc_prtd->platform->dev);
 		if (pdata) {
 			if (pdata->perf_mode == LOW_LATENCY_PCM_MODE)
 				apr_end_rx_rt(prtd->audio_client->apr);
@@ -1435,7 +1437,6 @@ static int msm_pcm_volume_ctl_put(struct snd_kcontrol *kcontrol,
 		pr_err("%s substream runtime not found\n", __func__);
 		return 0;
 	}
-
 	soc_prtd = substream->private_data;
 	if (!soc_prtd) {
 		pr_err("%s: soc_prtd is NULL\n", __func__);
@@ -1674,7 +1675,6 @@ static int msm_pcm_chmap_ctl_get(struct snd_kcontrol *kcontrol,
 	substream = snd_pcm_chmap_substream(info, idx);
 	if (!substream)
 		return -ENODEV;
-
 	memset(ucontrol->value.integer.value, 0,
 		sizeof(ucontrol->value.integer.value));
 	if (!substream->runtime)

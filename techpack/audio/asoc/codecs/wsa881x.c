@@ -999,7 +999,7 @@ static int wsa881x_spkr_pa_event(struct snd_soc_dapm_widget *w,
 
 		break;
 	case SND_SOC_DAPM_POST_PMU:
-		if (!wsa881x->bolero_dev)
+ 		if (!wsa881x->bolero_dev)
 			snd_soc_update_bits(codec,
 					    WSA881X_SPKR_DRV_EN,
 					    0x80, 0x80);
