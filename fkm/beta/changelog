@@ -1,0 +1,22 @@
+**4.14.165-NeutrinoKernel-coruscant**
+(Beta 1)
+
+---
+- **Enable [Pressure Stall Information](https://github.com/0ctobot/neutrino_kernel_oneplus_sm8150/commit/9651f6fa4f0b62f4df5987a88f67ca546be1ae10)**
+  * Improve lmkd performance and accuracy
+  * Mainline PSI updates and bug fixes 
+- **Upstream CFQ patches**
+- **Establish beta channel configuration for FKM OTA testing†**
+
+_† Users interested in receiving beta test OTAs may access the latest Neutrino updates via FKM with the following, secondary URL:_
+
+https://raw.githubusercontent.com/0ctobot/neutrino_kernel_oneplus_sm8150/neutrino-msm-hotdogb-4.14/ota/beta-ota.json
+
+_The previously provided configuration for stable release candidate OTAs remains unchanged:_
+
+https://raw.githubusercontent.com/0ctobot/neutrino_kernel_oneplus_sm8150/neutrino-msm-hotdogb-4.14/ota/ota.json
+
+**Complete Changelog:**
+(https://bit.ly/2rNOdN2)
+
+@OnePlusDevelopment
