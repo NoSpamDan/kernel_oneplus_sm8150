@@ -1063,11 +1063,11 @@ static int synaptics_get_gesture_info(void *chip_data, struct gesture_info * ges
 			break;
 		case UNICODE_DETECT:
 			gesture->gesture_type = (gesture_buffer[2] == 0x77 &&
-					gesture_buffer[3] == 0x00) ? Wgestrue :
+					gesture_buffer[3] == 0x00) ? Wgesture :
 				(gesture_buffer[2] == 0x6d &&
-				 gesture_buffer[3] == 0x00) ? Mgestrue :
+				 gesture_buffer[3] == 0x00) ? Mgesture :
 				(gesture_buffer[2] == 0x73 &&
-				 gesture_buffer[3] == 0x00) ? Sgestrue :
+				 gesture_buffer[3] == 0x00) ? Sgesture :
 				UnkownGesture;
 			break;
 		case SINGLE_TAP:
